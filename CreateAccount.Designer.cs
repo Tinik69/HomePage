@@ -39,6 +39,7 @@
             label2 = new Label();
             label3 = new Label();
             accname_tbox = new TextBox();
+            error = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             // 
             // proceedButton
             // 
-            proceedButton.Location = new Point(347, 291);
+            proceedButton.Location = new Point(347, 316);
             proceedButton.Margin = new Padding(3, 4, 3, 4);
             proceedButton.Name = "proceedButton";
             proceedButton.Size = new Size(86, 31);
@@ -104,13 +105,14 @@
             // 
             // generateButton
             // 
-            generateButton.Location = new Point(470, 291);
+            generateButton.Location = new Point(470, 316);
             generateButton.Margin = new Padding(3, 4, 3, 4);
             generateButton.Name = "generateButton";
             generateButton.Size = new Size(86, 31);
             generateButton.TabIndex = 5;
             generateButton.Text = "Generate";
             generateButton.UseVisualStyleBackColor = true;
+            generateButton.Click += generateButton_Click;
             // 
             // label1
             // 
@@ -151,11 +153,21 @@
             accname_tbox.Size = new Size(114, 27);
             accname_tbox.TabIndex = 8;
             // 
+            // error
+            // 
+            error.AutoSize = true;
+            error.ForeColor = Color.Red;
+            error.Location = new Point(347, 278);
+            error.Name = "error";
+            error.Size = new Size(0, 20);
+            error.TabIndex = 10;
+            // 
             // CreateAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(error);
             Controls.Add(label3);
             Controls.Add(accname_tbox);
             Controls.Add(label2);
@@ -187,5 +199,6 @@
         private Button backButton;
         private Label label3;
         private TextBox accname_tbox;
+        private Label error;
     }
 }

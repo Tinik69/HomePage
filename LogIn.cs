@@ -25,7 +25,11 @@ namespace PassGuard
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            HomePage.Instance.PnlContainer.Controls.Clear();
+            foreach (Control control in HomePage.Instance.PnlContainer.Controls.OfType<UserControl>())
+            {
+                control.Hide();
+            }
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -33,28 +37,29 @@ namespace PassGuard
 
         }
 
+
         public string MainUsername { get; private set; }
+
         private void loginButton_Click(object sender, EventArgs e)
         {
-            // Ensure both fields are not empty
             if (!string.IsNullOrWhiteSpace(mainusername_textbox.Text) && !string.IsNullOrWhiteSpace(mainpassword_textbox.Text))
             {
                 MainUsername = mainusername_textbox.Text;
                 string mainPassword = mainpassword_textbox.Text;
 
-                // Call the method to check if the username and password are valid
                 if (IsLoginValid(MainUsername, mainPassword))
                 {
-                    // Check if MainMenu is already in the container
-                    if (!HomePage.Instance.PnlContainer.Controls.ContainsKey("MainMenu"))
+                    if (HomePage.Instance.PnlContainer.Controls.ContainsKey("MainMenu"))
                     {
-                        // Pass the username to MainMenu when creating it
-                        MainMenu mainMenu = new MainMenu(MainUsername);
-                        mainMenu.Dock = DockStyle.Fill;
-                        HomePage.Instance.PnlContainer.Controls.Add(mainMenu);
+                        Control existingMainMenu = HomePage.Instance.PnlContainer.Controls["MainMenu"];
+                        HomePage.Instance.PnlContainer.Controls.Remove(existingMainMenu);
+                        existingMainMenu.Dispose(); 
                     }
 
-                    // Bring MainMenu to the front
+                    MainMenu mainMenu = new MainMenu(MainUsername);
+                    mainMenu.Dock = DockStyle.Fill;
+                    HomePage.Instance.PnlContainer.Controls.Add(mainMenu);
+
                     HomePage.Instance.PnlContainer.Controls["MainMenu"].BringToFront();
                 }
                 else
@@ -64,7 +69,7 @@ namespace PassGuard
             }
             else
             {
-                MessageBox.Show("Please enter both username and password.");
+                error.Text = "Please fill out all fields.";
             }
         }
 
@@ -111,19 +116,6 @@ namespace PassGuard
             HomePage.Instance.PnlContainer.Controls["Recovery"].BringToFront();
         }
 
-        private void LogIn_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void passwordLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mainpassword_textbox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

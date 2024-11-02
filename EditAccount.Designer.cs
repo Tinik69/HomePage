@@ -33,12 +33,13 @@
             label4 = new Label();
             submitButton = new Button();
             generateButton = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            accname_tbox = new TextBox();
+            edituser_tbox = new TextBox();
+            editpass_tbox = new TextBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            error = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,7 +76,7 @@
             // 
             // submitButton
             // 
-            submitButton.Location = new Point(398, 307);
+            submitButton.Location = new Point(398, 325);
             submitButton.Margin = new Padding(3, 4, 3, 4);
             submitButton.Name = "submitButton";
             submitButton.Size = new Size(86, 31);
@@ -86,47 +87,48 @@
             // 
             // generateButton
             // 
-            generateButton.Location = new Point(526, 307);
+            generateButton.Location = new Point(526, 325);
             generateButton.Margin = new Padding(3, 4, 3, 4);
             generateButton.Name = "generateButton";
             generateButton.Size = new Size(86, 31);
             generateButton.TabIndex = 2;
             generateButton.Text = "Generate";
             generateButton.UseVisualStyleBackColor = true;
+            generateButton.Click += generateButton_Click;
             // 
-            // textBox1
+            // accname_tbox
             // 
-            textBox1.Location = new Point(451, 141);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(114, 27);
-            textBox1.TabIndex = 3;
+            accname_tbox.Location = new Point(451, 141);
+            accname_tbox.Margin = new Padding(3, 4, 3, 4);
+            accname_tbox.Name = "accname_tbox";
+            accname_tbox.Size = new Size(114, 27);
+            accname_tbox.TabIndex = 3;
             // 
-            // textBox2
+            // edituser_tbox
             // 
-            textBox2.Location = new Point(451, 193);
-            textBox2.Margin = new Padding(3, 4, 3, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(114, 27);
-            textBox2.TabIndex = 4;
+            edituser_tbox.Location = new Point(451, 193);
+            edituser_tbox.Margin = new Padding(3, 4, 3, 4);
+            edituser_tbox.Name = "edituser_tbox";
+            edituser_tbox.Size = new Size(114, 27);
+            edituser_tbox.TabIndex = 4;
             // 
-            // textBox3
+            // editpass_tbox
             // 
-            textBox3.Location = new Point(451, 245);
-            textBox3.Margin = new Padding(3, 4, 3, 4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(114, 27);
-            textBox3.TabIndex = 5;
+            editpass_tbox.Location = new Point(451, 245);
+            editpass_tbox.Margin = new Padding(3, 4, 3, 4);
+            editpass_tbox.Name = "editpass_tbox";
+            editpass_tbox.Size = new Size(114, 27);
+            editpass_tbox.TabIndex = 5;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(258, 145);
+            label1.Location = new Point(252, 144);
             label1.Name = "label1";
-            label1.Size = new Size(176, 20);
+            label1.Size = new Size(193, 20);
             label1.TabIndex = 6;
-            label1.Text = "Enter new Account Name";
+            label1.Text = "Enter Account Name to edit";
             // 
             // label2
             // 
@@ -148,17 +150,27 @@
             label3.TabIndex = 8;
             label3.Text = "Enter new Password";
             // 
+            // error
+            // 
+            error.AutoSize = true;
+            error.ForeColor = Color.Red;
+            error.Location = new Point(425, 286);
+            error.Name = "error";
+            error.Size = new Size(0, 20);
+            error.TabIndex = 10;
+            // 
             // EditAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(error);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(editpass_tbox);
+            Controls.Add(edituser_tbox);
+            Controls.Add(accname_tbox);
             Controls.Add(generateButton);
             Controls.Add(submitButton);
             Controls.Add(panel1);
@@ -178,12 +190,13 @@
         private Label label4;
         private Button submitButton;
         private Button generateButton;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox accname_tbox;
+        private TextBox edituser_tbox;
+        private TextBox editpass_tbox;
         private Label label1;
         private Label label2;
         private Label label3;
         private Button backButton;
+        private Label error;
     }
 }

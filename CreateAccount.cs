@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,37 +14,37 @@ namespace PassGuard
     public partial class CreateAccount : UserControl
     {
         public event EventHandler<AccountEventArgs> AccountCreated;
+        private string mainUsername;
 
-    public CreateAccount()
-    {
-        InitializeComponent();
-    }
-
-    private void proceedButton_Click(object sender, EventArgs e)
-    {
-        // Validate inputs before proceeding
-        if (!string.IsNullOrWhiteSpace(accname_tbox.Text) && !string.IsNullOrWhiteSpace(createusername_tbox.Text) && !string.IsNullOrWhiteSpace(createpassword_tbox.Text))
+        private string GenerateRandomPassword()
         {
-            // Trigger the AccountCreated event and pass the account data
-            AccountCreated?.Invoke(this, new AccountEventArgs(accname_tbox.Text, createusername_tbox.Text, createpassword_tbox.Text));
-            
-            // Clear fields after the event is triggered
-            accname_tbox.Text = "";
-            createusername_tbox.Text = "";
-            createpassword_tbox.Text = "";
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(chars, 8)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        else
+
+        public CreateAccount(string mainusername)
         {
-            MessageBox.Show("Please fill out all fields.");
+            InitializeComponent();
+            mainUsername = mainusername;
         }
-    }
 
-    private void backButton_Click(object sender, EventArgs e)
-    {
-        this.Hide();
-    }
+        private void proceedButton_Click(object sender, EventArgs e)
+        {
 
-        
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void generateButton_Click(object sender, EventArgs e)
+        {
+            string randomPassword = GenerateRandomPassword();
+            createpassword_tbox.Text = randomPassword;
+        }
     }
 
     public class AccountEventArgs : EventArgs
@@ -59,4 +60,6 @@ namespace PassGuard
             Password = password;
         }
     }
+
 }
+

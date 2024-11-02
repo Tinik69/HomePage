@@ -93,9 +93,9 @@
             // 
             mainpassword_textbox.Location = new Point(394, 247);
             mainpassword_textbox.Name = "mainpassword_textbox";
+            mainpassword_textbox.PasswordChar = '•';
             mainpassword_textbox.Size = new Size(125, 27);
             mainpassword_textbox.TabIndex = 2;
-            mainpassword_textbox.TextChanged += mainpassword_textbox_TextChanged;
             // 
             // usernameLabel
             // 
@@ -116,7 +116,6 @@
             passwordLabel.Size = new Size(103, 20);
             passwordLabel.TabIndex = 4;
             passwordLabel.Text = "Your Password";
-            passwordLabel.Click += passwordLabel_Click;
             // 
             // loginButton
             // 
@@ -154,7 +153,7 @@
             // 
             error.AutoSize = true;
             error.ForeColor = Color.Red;
-            error.Location = new Point(357, 287);
+            error.Location = new Point(373, 287);
             error.Name = "error";
             error.Size = new Size(0, 20);
             error.TabIndex = 10;
@@ -175,7 +174,6 @@
             Controls.Add(panel1);
             Name = "LogIn";
             Size = new Size(923, 464);
-            Load += LogIn_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

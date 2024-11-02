@@ -73,7 +73,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(407, 125);
+            textBox1.Location = new Point(407, 126);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(125, 27);
             textBox1.TabIndex = 1;

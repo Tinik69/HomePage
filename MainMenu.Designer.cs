@@ -33,15 +33,16 @@ namespace PassGuard
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            logoutButton = new Button();
             label2 = new Label();
-            button13 = new Button();
-            button14 = new Button();
+            editButton = new Button();
+            deleteButton = new Button();
             addButton = new Button();
             panel2 = new Panel();
             label1 = new Label();
             dataGridView1 = new DataGridView();
             showbutton = new Button();
-            backButton = new Button();
+            error = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -50,45 +51,58 @@ namespace PassGuard
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaption;
-            panel1.Controls.Add(backButton);
+            panel1.Controls.Add(logoutButton);
             panel1.Controls.Add(label2);
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(923, 67);
             panel1.TabIndex = 0;
             // 
+            // logoutButton
+            // 
+            logoutButton.Location = new Point(16, 18);
+            logoutButton.Margin = new Padding(3, 4, 3, 4);
+            logoutButton.Name = "logoutButton";
+            logoutButton.Size = new Size(86, 31);
+            logoutButton.TabIndex = 20;
+            logoutButton.Text = "Log Out";
+            logoutButton.UseVisualStyleBackColor = true;
+            logoutButton.Click += logoutButton_Click;
+            // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(376, 23);
             label2.Name = "label2";
-            label2.Size = new Size(160, 20);
+            label2.Size = new Size(164, 20);
             label2.TabIndex = 1;
-            label2.Text = "Welcome to GuardPass";
+            label2.Text = "Welcome to PassGuard!";
             // 
-            // button13
+            // editButton
             // 
-            button13.Location = new Point(474, 364);
-            button13.Name = "button13";
-            button13.Size = new Size(99, 61);
-            button13.TabIndex = 13;
-            button13.Text = "Edit";
-            button13.UseVisualStyleBackColor = true;
+            editButton.Location = new Point(448, 364);
+            editButton.Name = "editButton";
+            editButton.Size = new Size(77, 40);
+            editButton.TabIndex = 13;
+            editButton.Text = "Edit";
+            editButton.UseVisualStyleBackColor = true;
+            editButton.Click += editButton_Click;
             // 
-            // button14
+            // deleteButton
             // 
-            button14.Location = new Point(610, 364);
-            button14.Name = "button14";
-            button14.Size = new Size(99, 61);
-            button14.TabIndex = 14;
-            button14.Text = "Delete";
-            button14.UseVisualStyleBackColor = true;
+            deleteButton.Location = new Point(548, 364);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(77, 40);
+            deleteButton.TabIndex = 14;
+            deleteButton.Text = "Delete";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += deleteButton_Click;
             // 
             // addButton
             // 
-            addButton.Location = new Point(335, 364);
+            addButton.Location = new Point(353, 364);
             addButton.Name = "addButton";
-            addButton.Size = new Size(99, 61);
+            addButton.Size = new Size(77, 40);
             addButton.TabIndex = 15;
             addButton.Text = "Add";
             addButton.UseVisualStyleBackColor = true;
@@ -114,6 +128,9 @@ namespace PassGuard
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(154, 137);
             dataGridView1.Name = "dataGridView1";
@@ -123,35 +140,35 @@ namespace PassGuard
             // 
             // showbutton
             // 
-            showbutton.Location = new Point(190, 364);
+            showbutton.Location = new Point(257, 364);
             showbutton.Name = "showbutton";
-            showbutton.Size = new Size(99, 61);
+            showbutton.Size = new Size(77, 40);
             showbutton.TabIndex = 19;
             showbutton.Text = "Show";
             showbutton.UseVisualStyleBackColor = true;
             showbutton.Click += showbutton_Click;
             // 
-            // backButton
+            // error
             // 
-            backButton.Location = new Point(16, 18);
-            backButton.Margin = new Padding(3, 4, 3, 4);
-            backButton.Name = "backButton";
-            backButton.Size = new Size(86, 31);
-            backButton.TabIndex = 20;
-            backButton.Text = "Back";
-            backButton.UseVisualStyleBackColor = true;
-            backButton.Click += backButton_Click;
+            error.AutoSize = true;
+            error.ForeColor = Color.Red;
+            error.Location = new Point(353, 417);
+            error.Name = "error";
+            error.Size = new Size(0, 20);
+            error.TabIndex = 20;
             // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(error);
             Controls.Add(showbutton);
             Controls.Add(dataGridView1);
             Controls.Add(panel2);
             Controls.Add(addButton);
-            Controls.Add(button14);
-            Controls.Add(button13);
+            Controls.Add(deleteButton);
+            Controls.Add(editButton);
             Controls.Add(panel1);
             Name = "MainMenu";
             Size = new Size(923, 464);
@@ -161,19 +178,21 @@ namespace PassGuard
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Panel panel1;
-        private Button button13;
-        private Button button14;
+        private Button editButton;
+        private Button deleteButton;
         private Button addButton;
         private Panel panel2;
         private Label label1;
         private Label label2;
         private DataGridView dataGridView1;
         private Button showbutton;
-        private Button backButton;
+        private Button logoutButton;
+        private Label error;
     }
 }

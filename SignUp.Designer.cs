@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             proceedButton = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            username_signup_tbox = new TextBox();
+            password_signup_tbox = new TextBox();
             label1 = new Label();
             label2 = new Label();
             panel1 = new Panel();
             backButton = new Button();
             label4 = new Label();
+            error = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // proceedButton
             // 
             proceedButton.Anchor = AnchorStyles.Bottom;
-            proceedButton.Location = new Point(482, 276);
+            proceedButton.Location = new Point(482, 287);
             proceedButton.Name = "proceedButton";
             proceedButton.Size = new Size(94, 29);
             proceedButton.TabIndex = 0;
@@ -50,21 +51,21 @@
             proceedButton.UseVisualStyleBackColor = true;
             proceedButton.Click += proceedButton_Click;
             // 
-            // textBox1
+            // username_signup_tbox
             // 
-            textBox1.Anchor = AnchorStyles.Bottom;
-            textBox1.Location = new Point(415, 173);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(235, 27);
-            textBox1.TabIndex = 1;
+            username_signup_tbox.Anchor = AnchorStyles.Bottom;
+            username_signup_tbox.Location = new Point(415, 173);
+            username_signup_tbox.Name = "username_signup_tbox";
+            username_signup_tbox.Size = new Size(235, 27);
+            username_signup_tbox.TabIndex = 1;
             // 
-            // textBox2
+            // password_signup_tbox
             // 
-            textBox2.Anchor = AnchorStyles.Bottom;
-            textBox2.Location = new Point(415, 220);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(235, 27);
-            textBox2.TabIndex = 2;
+            password_signup_tbox.Anchor = AnchorStyles.Bottom;
+            password_signup_tbox.Location = new Point(415, 220);
+            password_signup_tbox.Name = "password_signup_tbox";
+            password_signup_tbox.Size = new Size(235, 27);
+            password_signup_tbox.TabIndex = 2;
             // 
             // label1
             // 
@@ -114,16 +115,26 @@
             label4.TabIndex = 0;
             label4.Text = "Sign Up";
             // 
+            // error
+            // 
+            error.AutoSize = true;
+            error.ForeColor = Color.Red;
+            error.Location = new Point(442, 261);
+            error.Name = "error";
+            error.Size = new Size(0, 20);
+            error.TabIndex = 9;
+            // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(error);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(password_signup_tbox);
+            Controls.Add(username_signup_tbox);
             Controls.Add(proceedButton);
             Name = "SignUp";
             Size = new Size(923, 464);
@@ -137,12 +148,13 @@
         #endregion
 
         private Button proceedButton;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox username_signup_tbox;
+        private TextBox password_signup_tbox;
         private Label label1;
         private Label label2;
         private Panel panel1;
         private Label label4;
         private Button backButton;
+        private Label error;
     }
 }

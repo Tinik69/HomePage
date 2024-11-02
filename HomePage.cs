@@ -81,8 +81,10 @@ namespace PassGuard
         {
             _obj = this;
 
-            // Clear other controls if they exist to avoid stacking
-            HomePage.Instance.PnlContainer.Controls.Clear();
+            foreach (Control control in PnlContainer.Controls.OfType<UserControl>())
+            {
+                control.Hide();
+            }
 
             SignUp signUp = new SignUp();
             signUp.Dock = DockStyle.Fill;
@@ -94,8 +96,10 @@ namespace PassGuard
         {
             _obj = this;
 
-            // Clear other controls if they exist to avoid stacking
-            HomePage.Instance.PnlContainer.Controls.Clear();
+            foreach(Control control in PnlContainer.Controls.OfType<UserControl>())
+            {
+                control.Hide();
+            }
 
             About about = new About();
             about.Dock = DockStyle.Fill;
@@ -107,8 +111,10 @@ namespace PassGuard
         {
             _obj = this;
 
-            // Clear other controls if they exist to avoid stacking
-            HomePage.Instance.PnlContainer.Controls.Clear();
+            foreach (Control control in PnlContainer.Controls.OfType<UserControl>())
+            {
+                control.Hide();
+            }
 
             LogIn login = new LogIn();
             login.Dock = DockStyle.Fill;
@@ -120,14 +126,11 @@ namespace PassGuard
 
         public void GoBackToMain()
         {
-            // Hide all UserControls and reset to the main view
             foreach (Control control in PnlContainer.Controls.OfType<UserControl>())
             {
-                control.Hide();
+                if (control is LogIn || control is SignUp || control is About) { PnlContainer.Controls.Remove(control); }
+                else control.Show();
             }
-            // Optionally, show any main controls (if you have any other controls to show)
-            // e.g. mainLabel.Visible = true; or any specific initialization
-            PnlContainer.Visible = true; // Show the main panel if needed
         }
     }
 

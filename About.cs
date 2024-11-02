@@ -24,7 +24,11 @@ namespace PassGuard
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            HomePage.Instance.PnlContainer.Controls.Clear(); 
+            foreach (Control control in HomePage.Instance.PnlContainer.Controls.OfType<UserControl>())
+            {
+                control.Hide();
+            }
         }
+
     }
 }
