@@ -37,6 +37,7 @@
             backButton = new Button();
             label4 = new Label();
             error = new Label();
+            pwordstr = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,8 +65,10 @@
             password_signup_tbox.Anchor = AnchorStyles.Bottom;
             password_signup_tbox.Location = new Point(415, 220);
             password_signup_tbox.Name = "password_signup_tbox";
+            password_signup_tbox.PasswordChar = '•';
             password_signup_tbox.Size = new Size(235, 27);
             password_signup_tbox.TabIndex = 2;
+            password_signup_tbox.TextChanged += password_signup_tbox_TextChanged;
             // 
             // label1
             // 
@@ -124,11 +127,20 @@
             error.Size = new Size(0, 20);
             error.TabIndex = 9;
             // 
+            // pwordstr
+            // 
+            pwordstr.AutoSize = true;
+            pwordstr.Location = new Point(666, 227);
+            pwordstr.Name = "pwordstr";
+            pwordstr.Size = new Size(0, 20);
+            pwordstr.TabIndex = 10;
+            // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(pwordstr);
             Controls.Add(error);
             Controls.Add(panel1);
             Controls.Add(label2);
@@ -138,7 +150,6 @@
             Controls.Add(proceedButton);
             Name = "SignUp";
             Size = new Size(923, 464);
-            Load += SignUp_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -156,5 +167,6 @@
         private Label label4;
         private Button backButton;
         private Label error;
+        private Label pwordstr;
     }
 }

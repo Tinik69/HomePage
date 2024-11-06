@@ -120,11 +120,11 @@ namespace PassGuard
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(263, 9);
+            label1.Location = new Point(222, 11);
             label1.Name = "label1";
-            label1.Size = new Size(69, 20);
+            label1.Size = new Size(111, 20);
             label1.TabIndex = 0;
-            label1.Text = "Accounts";
+            label1.Text = "User's Accounts";
             // 
             // dataGridView1
             // 

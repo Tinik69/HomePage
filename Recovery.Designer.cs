@@ -31,13 +31,14 @@
             panel1 = new Panel();
             label4 = new Label();
             backButton = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
+            mama_tbox = new TextBox();
+            pet_tbox = new TextBox();
             birthdayLabel = new Label();
-            parentLabel = new Label();
+            motherLabel = new Label();
             petLabel = new Label();
             proceedButton = new Button();
+            bday_calendar = new MonthCalendar();
+            error = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -59,7 +60,6 @@
             label4.Size = new Size(69, 20);
             label4.TabIndex = 1;
             label4.Text = "Recovery";
-            label4.Click += label4_Click;
             // 
             // backButton
             // 
@@ -71,53 +71,45 @@
             backButton.UseVisualStyleBackColor = true;
             backButton.Click += backButton_Click;
             // 
-            // textBox1
+            // mama_tbox
             // 
-            textBox1.Location = new Point(407, 126);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 1;
+            mama_tbox.Location = new Point(520, 327);
+            mama_tbox.Name = "mama_tbox";
+            mama_tbox.Size = new Size(125, 27);
+            mama_tbox.TabIndex = 2;
             // 
-            // textBox2
+            // pet_tbox
             // 
-            textBox2.Location = new Point(407, 185);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 2;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(407, 252);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(125, 27);
-            textBox3.TabIndex = 3;
+            pet_tbox.Location = new Point(520, 369);
+            pet_tbox.Name = "pet_tbox";
+            pet_tbox.Size = new Size(125, 27);
+            pet_tbox.TabIndex = 3;
             // 
             // birthdayLabel
             // 
             birthdayLabel.AutoSize = true;
             birthdayLabel.ForeColor = SystemColors.ControlLightLight;
-            birthdayLabel.Location = new Point(397, 103);
+            birthdayLabel.Location = new Point(403, 79);
             birthdayLabel.Name = "birthdayLabel";
             birthdayLabel.Size = new Size(160, 20);
             birthdayLabel.TabIndex = 4;
             birthdayLabel.Text = "When is your birthday?";
-            birthdayLabel.Click += birthdayLabel_Click;
             // 
-            // parentLabel
+            // motherLabel
             // 
-            parentLabel.AutoSize = true;
-            parentLabel.ForeColor = SystemColors.ControlLightLight;
-            parentLabel.Location = new Point(383, 163);
-            parentLabel.Name = "parentLabel";
-            parentLabel.Size = new Size(195, 20);
-            parentLabel.TabIndex = 5;
-            parentLabel.Text = "What is your parent's name?";
+            motherLabel.AutoSize = true;
+            motherLabel.ForeColor = SystemColors.ControlLightLight;
+            motherLabel.Location = new Point(291, 330);
+            motherLabel.Name = "motherLabel";
+            motherLabel.Size = new Size(200, 20);
+            motherLabel.TabIndex = 5;
+            motherLabel.Text = "What is your mother's name?";
             // 
             // petLabel
             // 
             petLabel.AutoSize = true;
             petLabel.ForeColor = SystemColors.ControlLightLight;
-            petLabel.Location = new Point(373, 229);
+            petLabel.Location = new Point(291, 372);
             petLabel.Name = "petLabel";
             petLabel.Size = new Size(208, 20);
             petLabel.TabIndex = 6;
@@ -125,7 +117,7 @@
             // 
             // proceedButton
             // 
-            proceedButton.Location = new Point(423, 307);
+            proceedButton.Location = new Point(433, 434);
             proceedButton.Name = "proceedButton";
             proceedButton.Size = new Size(94, 29);
             proceedButton.TabIndex = 7;
@@ -133,22 +125,38 @@
             proceedButton.UseVisualStyleBackColor = true;
             proceedButton.Click += proceedButton_Click;
             // 
+            // bday_calendar
+            // 
+            bday_calendar.Location = new Point(350, 108);
+            bday_calendar.MaxSelectionCount = 1;
+            bday_calendar.Name = "bday_calendar";
+            bday_calendar.TabIndex = 8;
+            // 
+            // error
+            // 
+            error.AutoSize = true;
+            error.ForeColor = Color.Red;
+            error.Location = new Point(403, 408);
+            error.Name = "error";
+            error.Size = new Size(0, 20);
+            error.TabIndex = 9;
+            // 
             // Recovery
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(error);
+            Controls.Add(bday_calendar);
             Controls.Add(proceedButton);
             Controls.Add(petLabel);
-            Controls.Add(parentLabel);
+            Controls.Add(motherLabel);
             Controls.Add(birthdayLabel);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(pet_tbox);
+            Controls.Add(mama_tbox);
             Controls.Add(panel1);
             Name = "Recovery";
-            Size = new Size(923, 464);
-            Load += Recovery_Load;
+            Size = new Size(923, 521);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -158,14 +166,15 @@
         #endregion
 
         private Panel panel1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
+        private TextBox mama_tbox;
+        private TextBox pet_tbox;
         private Label birthdayLabel;
-        private Label parentLabel;
+        private Label motherLabel;
         private Label petLabel;
         private Button proceedButton;
         private Button backButton;
         private Label label4;
+        private MonthCalendar bday_calendar;
+        private Label error;
     }
 }

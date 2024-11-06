@@ -7,6 +7,7 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
@@ -147,7 +148,6 @@
             label2.Size = new Size(94, 20);
             label2.TabIndex = 9;
             label2.Text = "Can't Log in?";
-            label2.Click += label2_Click;
             // 
             // error
             // 

@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Collections;
 
 namespace PassGuard
 {
@@ -23,25 +13,24 @@ namespace PassGuard
         {
             InitializeComponent();
             mainUsername = username;
+            label1.Text = $"{mainUsername}'s Accounts";
         }
-        public MainMenu()
+        public MainMenu(int id)
         {
             InitializeComponent();
         }
 
-        private void settingsButton_Click(object sender, EventArgs e)
+        public MainMenu(int id, string username)
         {
-            if (!HomePage.Instance.PnlContainer.Controls.ContainsKey("Settings"))
-            {
-                Settings settings = new Settings();
-                settings.Dock = DockStyle.Fill;
-                HomePage.Instance.PnlContainer.Controls.Add(settings);
-            }
-            HomePage.Instance.PnlContainer.Controls["Settings"].BringToFront();
+            InitializeComponent();
+            mainUsername = username;
+            label1.Text = $"{mainUsername}'s Accounts";
         }
+
 
         private void addButton_Click(object sender, EventArgs e)
         {
+
             if (HomePage.Instance.PnlContainer.Controls.ContainsKey("CreateAccount"))
             {
                 Control existingCreateAccount = HomePage.Instance.PnlContainer.Controls["CreateAccount"];
@@ -52,31 +41,11 @@ namespace PassGuard
             // Create and add a fresh instance
             CreateAccount createAcc = new CreateAccount(mainUsername);
             createAcc.Dock = DockStyle.Fill;
-            createAcc.AccountCreated += OnAccountCreated;
             HomePage.Instance.PnlContainer.Controls.Add(createAcc);
             HomePage.Instance.PnlContainer.Controls["CreateAccount"].BringToFront();
         }
 
-        private void OnAccountCreated(object sender, AccountEventArgs e)
-        {
-            // Insert the new account data into the database
-            string insertQuery = "INSERT INTO Accounts (Account_name, Account_username, Account_password) VALUES (@Name, @Username, @Password);";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(insertQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@Name", e.AccountName);
-                    command.Parameters.AddWithValue("@Username", e.Username);
-                    command.Parameters.AddWithValue("@Password", e.Password);
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-
-
+        
         private void showbutton_Click(object sender, EventArgs e)
         {
             string query = "SELECT * FROM Accounts WHERE Account_id = (SELECT Account_id FROM MainAccounts WHERE MainAccount_Username = @mainusername);";
@@ -189,5 +158,6 @@ namespace PassGuard
                 }
             }
         }
+
     }
 }

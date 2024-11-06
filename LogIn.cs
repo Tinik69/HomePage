@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using System.Data.SqlClient;
 
 
 namespace PassGuard
@@ -29,19 +18,16 @@ namespace PassGuard
             {
                 control.Hide();
             }
-            
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
 
         }
+
 
 
         public string MainUsername { get; private set; }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+
             if (!string.IsNullOrWhiteSpace(mainusername_textbox.Text) && !string.IsNullOrWhiteSpace(mainpassword_textbox.Text))
             {
                 MainUsername = mainusername_textbox.Text;
@@ -53,7 +39,7 @@ namespace PassGuard
                     {
                         Control existingMainMenu = HomePage.Instance.PnlContainer.Controls["MainMenu"];
                         HomePage.Instance.PnlContainer.Controls.Remove(existingMainMenu);
-                        existingMainMenu.Dispose(); 
+                        existingMainMenu.Dispose();
                     }
 
                     MainMenu mainMenu = new MainMenu(MainUsername);
@@ -95,8 +81,9 @@ namespace PassGuard
                             isValid = true;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
+
 
                     }
                 }
@@ -107,15 +94,20 @@ namespace PassGuard
 
         private void recoverLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!HomePage.Instance.PnlContainer.Controls.ContainsKey("Recovery"))
+            if (HomePage.Instance.PnlContainer.Controls.ContainsKey("Recovery"))
             {
-                Recovery recovery = new Recovery();
-                recovery.Dock = DockStyle.Fill;
-                HomePage.Instance.PnlContainer.Controls.Add(recovery);
+                Control existingRecovery = HomePage.Instance.PnlContainer.Controls["Recovery"];
+                HomePage.Instance.PnlContainer.Controls.Remove(existingRecovery);
+                existingRecovery.Dispose(); // Dispose the old instance to free resources
             }
+
+            // Create and add a fresh instance
+            Recovery recovery = new Recovery();
+            recovery.Dock = DockStyle.Fill;
+            HomePage.Instance.PnlContainer.Controls.Add(recovery);
             HomePage.Instance.PnlContainer.Controls["Recovery"].BringToFront();
         }
 
-        
+
     }
 }

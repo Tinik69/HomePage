@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data.SqlClient;
 
 namespace PassGuard
 {
@@ -19,22 +10,12 @@ namespace PassGuard
             InitializeComponent();
         }
 
-        private void SignUp_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void backButton_Click(object sender, EventArgs e)
         {
             foreach (Control control in HomePage.Instance.PnlContainer.Controls.OfType<UserControl>())
             {
                 control.Hide();
-            } 
+            }
         }
 
         private void proceedButton_Click(object sender, EventArgs e)
@@ -48,50 +29,84 @@ namespace PassGuard
                 error.ForeColor = Color.Red;
                 return;
             }
-
-            string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False";
-
-            string checkDuplicateQuery = "SELECT COUNT(*) FROM MainAccounts WHERE MainAccount_Username = @Username";
-            string insertQuery = "INSERT INTO MainAccounts (MainAccount_Username, MainAccount_Password) VALUES (@Username, @Password)";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand checkDuplicateCommand = new SqlCommand(checkDuplicateQuery, connection))
-            using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
+            else if (password_signup_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
             {
-                checkDuplicateCommand.Parameters.AddWithValue("@Username", username);
-                insertCommand.Parameters.AddWithValue("@Username", username);
-                insertCommand.Parameters.AddWithValue("@Password", password);
 
-                try
+                string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False";
+
+                string checkDuplicateQuery = "SELECT COUNT(*) FROM MainAccounts WHERE MainAccount_Username = @Username";
+                string insertQuery = "INSERT INTO MainAccounts (MainAccount_Username, MainAccount_Password) VALUES (@Username, @Password)";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand checkDuplicateCommand = new SqlCommand(checkDuplicateQuery, connection))
+                using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
                 {
-                    connection.Open();
-                    int duplicateCount = (int)checkDuplicateCommand.ExecuteScalar();
-                    if (duplicateCount > 0)
+                    checkDuplicateCommand.Parameters.AddWithValue("@Username", username);
+                    insertCommand.Parameters.AddWithValue("@Username", username);
+                    insertCommand.Parameters.AddWithValue("@Password", password);
+
+                    try
                     {
-                        error.Text = ("This username is already taken.");
-                        error.ForeColor = Color.Red;
-                        return;
+                        connection.Open();
+                        int duplicateCount = (int)checkDuplicateCommand.ExecuteScalar();
+                        if (duplicateCount > 0)
+                        {
+                            error.Text = ("This username is already taken.");
+                            error.ForeColor = Color.Red;
+                            return;
+                        }
+
+                        int result = insertCommand.ExecuteNonQuery();
+
+                        if (result > 0)
+                        {
+                            error.Text = ("Account created successfully!");
+                            error.ForeColor = Color.Green;
+
+                            username_signup_tbox.Clear();
+                            password_signup_tbox.Clear();
+                        }
+                        else
+                        {
+                            error.Text = ("An error occurred while creating the account.");
+                        }
                     }
-
-                    int result = insertCommand.ExecuteNonQuery();
-
-                    if (result > 0)
+                    catch (Exception ex)
                     {
-                        error.Text = ("Account created successfully!");
-                        error.ForeColor = Color.Green;
-
-                        username_signup_tbox.Clear();
-                        password_signup_tbox.Clear();
-                    }
-                    else
-                    {
-                        MessageBox.Show("An error occurred while creating the account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        error.Text = ($"An error occurred: {ex.Message}");
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            else
+            {
+                error.Text = password.Length < 8 ? "Password must be at least 8 characters long."
+                    : "Password must contain at least one number.";
+                error.ForeColor = Color.Red;
+            }
+        }
+
+        private void password_signup_tbox_TextChanged(object sender, EventArgs e)
+        {
+            string password = password_signup_tbox.Text.Trim();
+
+            if (password_signup_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+            {
+                pwordstr.Text = "Password strength: Strong";
+                pwordstr.ForeColor = Color.Green;
+            }
+            else if (password_signup_tbox.Text.Length >= 8 && !System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+            {
+                pwordstr.Text = "Password strength: Medium";
+                pwordstr.ForeColor = Color.Orange;
+            }
+            else if (password_signup_tbox.Text.Length > 0 && password_signup_tbox.Text.Length < 8)
+            {
+                pwordstr.Text = "Password strength: Weak";
+                pwordstr.ForeColor = Color.Red;
+            }
+            else
+            {
+                pwordstr.Text = string.Empty; 
             }
         }
     }

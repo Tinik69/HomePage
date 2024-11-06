@@ -105,7 +105,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.passguard2;
-            pictureBox1.Location = new Point(139, 52);
+            pictureBox1.Location = new Point(133, 52);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(741, 550);
             pictureBox1.TabIndex = 3;
@@ -121,7 +121,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "HomePage";
-            Text = "HomePage";
+            SizeGripStyle = SizeGripStyle.Hide;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "PassGuard";
             panelContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

@@ -1,8 +1,4 @@
-﻿using PassGuard;
-using System;
-using System.Windows.Forms;
-
-namespace PassGuard
+﻿namespace PassGuard
 {
     static class Program
     {

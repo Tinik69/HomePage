@@ -33,13 +33,14 @@
             label4 = new Label();
             createusername_tbox = new TextBox();
             createpassword_tbox = new TextBox();
-            proceedButton = new Button();
+            addaccButton = new Button();
             generateButton = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             accname_tbox = new TextBox();
             error = new Label();
+            passwordstrength = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -92,16 +93,16 @@
             createpassword_tbox.Size = new Size(114, 27);
             createpassword_tbox.TabIndex = 2;
             // 
-            // proceedButton
+            // addaccButton
             // 
-            proceedButton.Location = new Point(347, 316);
-            proceedButton.Margin = new Padding(3, 4, 3, 4);
-            proceedButton.Name = "proceedButton";
-            proceedButton.Size = new Size(86, 31);
-            proceedButton.TabIndex = 4;
-            proceedButton.Text = "Proceed";
-            proceedButton.UseVisualStyleBackColor = true;
-            proceedButton.Click += proceedButton_Click;
+            addaccButton.Location = new Point(347, 316);
+            addaccButton.Margin = new Padding(3, 4, 3, 4);
+            addaccButton.Name = "addaccButton";
+            addaccButton.Size = new Size(86, 31);
+            addaccButton.TabIndex = 4;
+            addaccButton.Text = "Add";
+            addaccButton.UseVisualStyleBackColor = true;
+            addaccButton.Click += addaccButton_Click;
             // 
             // generateButton
             // 
@@ -162,18 +163,28 @@
             error.Size = new Size(0, 20);
             error.TabIndex = 10;
             // 
+            // passwordstrength
+            // 
+            passwordstrength.AutoSize = true;
+            passwordstrength.Location = new Point(608, 236);
+            passwordstrength.Name = "passwordstrength";
+            passwordstrength.Size = new Size(0, 20);
+            passwordstrength.TabIndex = 11;
+            createpassword_tbox.TextChanged += createpassword_tbox_TextChanged;
+            // 
             // CreateAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(passwordstrength);
             Controls.Add(error);
             Controls.Add(label3);
             Controls.Add(accname_tbox);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(generateButton);
-            Controls.Add(proceedButton);
+            Controls.Add(addaccButton);
             Controls.Add(createpassword_tbox);
             Controls.Add(createusername_tbox);
             Controls.Add(panel1);
@@ -192,7 +203,7 @@
         private Label label4;
         private TextBox createusername_tbox;
         private TextBox createpassword_tbox;
-        private Button proceedButton;
+        private Button addaccButton;
         private Button generateButton;
         private Label label1;
         private Label label2;
@@ -200,5 +211,7 @@
         private Label label3;
         private TextBox accname_tbox;
         private Label error;
+        private Label passwordstrength;
+
     }
 }

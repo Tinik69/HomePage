@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PassGuard
 {
     public partial class CreateAccount : UserControl
     {
-        public event EventHandler<AccountEventArgs> AccountCreated;
         private string mainUsername;
 
         private string GenerateRandomPassword()
@@ -30,10 +21,107 @@ namespace PassGuard
             mainUsername = mainusername;
         }
 
-        private void proceedButton_Click(object sender, EventArgs e)
+        private void addaccButton_Click(object sender, EventArgs e)
         {
+            string accountName = accname_tbox.Text;
+            string username = createusername_tbox.Text;
+            string password = createpassword_tbox.Text;
+
+            if (!string.IsNullOrWhiteSpace(accname_tbox.Text) &&
+                    !string.IsNullOrWhiteSpace(createusername_tbox.Text) &&
+                    !string.IsNullOrWhiteSpace(createpassword_tbox.Text))
+            {
+                if (createpassword_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+                {
+
+                    // SQL connection string
+                    string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False";
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        // SQL query to insert a new account into the Accounts table
+                        string query = @"
+                    INSERT INTO Accounts (Account_id, Account_Name, Account_Username, Account_Password)
+                    VALUES ((SELECT Account_id FROM MainAccounts WHERE MainAccount_Username = @mainUsername), @accountName, @username, @password)";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            // Set parameters for the query
+                            command.Parameters.AddWithValue("@mainUsername", mainUsername); // Logged-in user's username
+                            command.Parameters.AddWithValue("@accountName", accountName);
+                            command.Parameters.AddWithValue("@username", username);
+                            command.Parameters.AddWithValue("@password", password);
+
+                            try
+                            {
+                                connection.Open();
+                                int rowsAffected = command.ExecuteNonQuery();
+
+                                if (rowsAffected > 0)
+                                {
+                                    error.Text = ("Account successfully created.");
+                                    error.ForeColor = Color.Green;
+
+                                    accname_tbox.Clear();
+                                    createusername_tbox.Clear();
+                                    createpassword_tbox.Clear();
+                                }
+                                else
+                                {
+                                    error.Text = ("Failed to create account. Please try again.");
+                                    error.ForeColor = Color.Red;
+                                }
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    error.Text = password.Length < 8 ? "Password must be at least 8 characters long."
+                    : "Password must contain at least one number.";
+                    error.ForeColor = Color.Red;
+                }
+
+            }
+            else
+            {
+                error.Text = ("Please fill out all fields.");
+                error.ForeColor = Color.Red;
+            }
+
+            // Ensure fields are not empty
 
         }
+        private void createpassword_tbox_TextChanged(object sender, EventArgs e)
+        {
+            string password = createpassword_tbox.Text.Trim();
+
+            if (createpassword_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+            {
+                passwordstrength.Text = "Password strength: Strong";
+                passwordstrength.ForeColor = Color.Green;
+            }
+            else if (createpassword_tbox.Text.Length >= 8 && !System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+            {
+                passwordstrength.Text = "Password strength: Medium";
+                passwordstrength.ForeColor = Color.Orange;
+            }
+            else if (createpassword_tbox.Text.Length > 0 && createpassword_tbox.Text.Length < 8)
+            {
+                passwordstrength.Text = "Password strength: Weak";
+                passwordstrength.ForeColor = Color.Red;
+            }
+            else
+            {
+                passwordstrength.Text = string.Empty;
+            }
+        }
+
 
         private void backButton_Click(object sender, EventArgs e)
         {
@@ -45,6 +133,8 @@ namespace PassGuard
             string randomPassword = GenerateRandomPassword();
             createpassword_tbox.Text = randomPassword;
         }
+
+        
     }
 
     public class AccountEventArgs : EventArgs

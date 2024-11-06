@@ -40,6 +40,7 @@
             label2 = new Label();
             label3 = new Label();
             error = new Label();
+            passwordstrength = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -119,6 +120,7 @@
             editpass_tbox.Name = "editpass_tbox";
             editpass_tbox.Size = new Size(114, 27);
             editpass_tbox.TabIndex = 5;
+            editpass_tbox.TextChanged += editpass_tbox_TextChanged;
             // 
             // label1
             // 
@@ -159,11 +161,20 @@
             error.Size = new Size(0, 20);
             error.TabIndex = 10;
             // 
+            // passwordstrength
+            // 
+            passwordstrength.AutoSize = true;
+            passwordstrength.Location = new Point(587, 247);
+            passwordstrength.Name = "passwordstrength";
+            passwordstrength.Size = new Size(0, 20);
+            passwordstrength.TabIndex = 11;
+            // 
             // EditAccount
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(passwordstrength);
             Controls.Add(error);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -177,7 +188,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "EditAccount";
             Size = new Size(923, 464);
-            Load += EditAccount_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -198,5 +208,6 @@
         private Label label3;
         private Button backButton;
         private Label error;
+        private Label passwordstrength;
     }
 }

@@ -1,15 +1,4 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace PassGuard
+﻿namespace PassGuard
 {
     public partial class HomePage : Form
     {
@@ -96,7 +85,7 @@ namespace PassGuard
         {
             _obj = this;
 
-            foreach(Control control in PnlContainer.Controls.OfType<UserControl>())
+            foreach (Control control in PnlContainer.Controls.OfType<UserControl>())
             {
                 control.Hide();
             }
