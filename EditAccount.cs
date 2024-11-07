@@ -27,9 +27,9 @@ namespace PassGuard
         private void submitButton_Click(object sender, EventArgs e)
         {
 
-            string accountName = accname_tbox.Text.Trim();
-            string newUsername = edituser_tbox.Text.Trim();
-            string newPassword = editpass_tbox.Text.Trim();
+            string accountName = accname_tbox.Text;
+            string newUsername = edituser_tbox.Text;
+            string newPassword = editpass_tbox.Text;
 
             if (string.IsNullOrEmpty(accountName) || string.IsNullOrEmpty(newUsername) || string.IsNullOrEmpty(newPassword))
             {

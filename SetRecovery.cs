@@ -29,7 +29,6 @@ namespace PassGuard
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    // First, get account_id using the username of the logged-in user
                     string getIdQuery = "SELECT Account_id FROM MainAccounts WHERE MainAccount_Username = @mainUsername";
                     string checkQuery = "SELECT COUNT(*) FROM Recovery WHERE Account_id = @accountId";
                     string insertQuery = @"
@@ -58,7 +57,6 @@ namespace PassGuard
 
                             int accountId = (int)accountIdObj;
 
-                            // Check if recovery info exists for this account
                             using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection))
                             {
                                 checkCommand.Parameters.AddWithValue("@accountId", accountId);
@@ -73,18 +71,15 @@ namespace PassGuard
                                 }
                                 else
                                 {
-                                    // Use the update query if recovery info exists
                                     command = new SqlCommand(updateQuery, connection);
                                     error.Text = "Recovery information updated successfully.";
                                 }
 
-                                // Set parameters for either insert or update
                                 command.Parameters.AddWithValue("@accountId", accountId);
                                 command.Parameters.AddWithValue("@bday", bdayStr);
                                 command.Parameters.AddWithValue("@mama", mama);
                                 command.Parameters.AddWithValue("@pet", pet);
 
-                                // Execute the command
                                 int rowsAffected = command.ExecuteNonQuery();
 
                                 if (rowsAffected > 0)
