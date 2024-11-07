@@ -25,15 +25,14 @@ namespace PassGuard
         {
             string accountName = accname_tbox.Text;
             string username = createusername_tbox.Text;
-            string password = createpassword_tbox.Text;
+            string password = createpassword_tbox.Text ;
 
             if (!string.IsNullOrWhiteSpace(accname_tbox.Text) &&
                     !string.IsNullOrWhiteSpace(createusername_tbox.Text) &&
                     !string.IsNullOrWhiteSpace(createpassword_tbox.Text))
             {
-                if (createpassword_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+                if (createpassword_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d") && !password.Contains(" "))
                 {
-
                     // SQL connection string
                     string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False";
 
@@ -82,8 +81,19 @@ namespace PassGuard
                 }
                 else
                 {
-                    error.Text = password.Length < 8 ? "Password must be at least 8 characters long."
-                    : "Password must contain at least one number.";
+                    // Check and display appropriate error message for password requirements
+                    if (password.Length < 8)
+                    {
+                        error.Text = "Password must be at least 8 characters long.";
+                    }
+                    else if (!System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+                    {
+                        error.Text = "Password must contain at least one number.";
+                    }
+                    else if (password.Contains(" "))
+                    {
+                        error.Text = "Password cannot contain spaces.";
+                    }
                     error.ForeColor = Color.Red;
                 }
 

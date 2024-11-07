@@ -43,6 +43,7 @@ namespace PassGuard
             dataGridView1 = new DataGridView();
             showbutton = new Button();
             error = new Label();
+            recoveryButton = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -80,7 +81,7 @@ namespace PassGuard
             // 
             // editButton
             // 
-            editButton.Location = new Point(448, 364);
+            editButton.Location = new Point(414, 364);
             editButton.Name = "editButton";
             editButton.Size = new Size(77, 40);
             editButton.TabIndex = 13;
@@ -90,7 +91,7 @@ namespace PassGuard
             // 
             // deleteButton
             // 
-            deleteButton.Location = new Point(548, 364);
+            deleteButton.Location = new Point(514, 364);
             deleteButton.Name = "deleteButton";
             deleteButton.Size = new Size(77, 40);
             deleteButton.TabIndex = 14;
@@ -100,7 +101,7 @@ namespace PassGuard
             // 
             // addButton
             // 
-            addButton.Location = new Point(353, 364);
+            addButton.Location = new Point(319, 364);
             addButton.Name = "addButton";
             addButton.Size = new Size(77, 40);
             addButton.TabIndex = 15;
@@ -140,7 +141,7 @@ namespace PassGuard
             // 
             // showbutton
             // 
-            showbutton.Location = new Point(257, 364);
+            showbutton.Location = new Point(223, 364);
             showbutton.Name = "showbutton";
             showbutton.Size = new Size(77, 40);
             showbutton.TabIndex = 19;
@@ -157,11 +158,22 @@ namespace PassGuard
             error.Size = new Size(0, 20);
             error.TabIndex = 20;
             // 
+            // recoveryButton
+            // 
+            recoveryButton.Location = new Point(606, 364);
+            recoveryButton.Name = "recoveryButton";
+            recoveryButton.Size = new Size(77, 40);
+            recoveryButton.TabIndex = 21;
+            recoveryButton.Text = "Recovery";
+            recoveryButton.UseVisualStyleBackColor = true;
+            recoveryButton.Click += recoveryButton_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(13, 13, 56);
+            Controls.Add(recoveryButton);
             Controls.Add(error);
             Controls.Add(showbutton);
             Controls.Add(dataGridView1);
@@ -194,5 +206,6 @@ namespace PassGuard
         private Button showbutton;
         private Button logoutButton;
         private Label error;
+        private Button recoveryButton;
     }
 }

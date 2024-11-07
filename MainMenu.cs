@@ -45,7 +45,7 @@ namespace PassGuard
             HomePage.Instance.PnlContainer.Controls["CreateAccount"].BringToFront();
         }
 
-        
+
         private void showbutton_Click(object sender, EventArgs e)
         {
             string query = "SELECT * FROM Accounts WHERE Account_id = (SELECT Account_id FROM MainAccounts WHERE MainAccount_Username = @mainusername);";
@@ -107,7 +107,15 @@ namespace PassGuard
                 return;
             }
 
-            string accountName = dataGridView1.SelectedRows[0].Cells["Account_Name"].Value.ToString();
+            DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+            if (selectedRow.Cells["Account_Name"].Value == null || string.IsNullOrWhiteSpace(selectedRow.Cells["Account_Name"].Value.ToString()))
+            {
+                error.Text = "Selected row does not contain a valid account.";
+                error.ForeColor = Color.Red;
+                return;
+            }
+
+            string accountName = selectedRow.Cells["Account_Name"].Value.ToString();
 
             // Confirm deletion
             DialogResult confirmResult = MessageBox.Show("Are you sure you want to delete this account?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -115,7 +123,6 @@ namespace PassGuard
             {
                 return;
             }
-
             // Connection string to the database
             string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False"; // Replace with your actual connection string
 
@@ -159,5 +166,20 @@ namespace PassGuard
             }
         }
 
+        private void recoveryButton_Click(object sender, EventArgs e)
+        {
+            if (HomePage.Instance.PnlContainer.Controls.ContainsKey("SetRecovery"))
+            {
+                Control existingSetRecovery = HomePage.Instance.PnlContainer.Controls["SetRecovery"];
+                HomePage.Instance.PnlContainer.Controls.Remove(existingSetRecovery);
+                existingSetRecovery.Dispose(); // Dispose the old instance to free resources
+            }
+
+            // Create and add a fresh instance
+            SetRecovery setrecovery = new SetRecovery(mainUsername);
+            setrecovery.Dock = DockStyle.Fill;
+            HomePage.Instance.PnlContainer.Controls.Add(setrecovery);
+            HomePage.Instance.PnlContainer.Controls["SetRecovery"].BringToFront();
+        }
     }
 }

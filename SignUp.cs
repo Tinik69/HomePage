@@ -20,8 +20,8 @@ namespace PassGuard
 
         private void proceedButton_Click(object sender, EventArgs e)
         {
-            string username = username_signup_tbox.Text.Trim();
-            string password = password_signup_tbox.Text.Trim();
+            string username = username_signup_tbox.Text;
+            string password = password_signup_tbox.Text;
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -29,7 +29,7 @@ namespace PassGuard
                 error.ForeColor = Color.Red;
                 return;
             }
-            else if (password_signup_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+            else if (password_signup_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(password, @"\d") && !password.Contains(" "))
             {
 
                 string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False";
@@ -73,14 +73,25 @@ namespace PassGuard
                     }
                     catch (Exception ex)
                     {
-                        error.Text = ($"An error occurred: {ex.Message}");
+                       MessageBox.Show(ex.Message);
                     }
                 }
             }
             else
             {
-                error.Text = password.Length < 8 ? "Password must be at least 8 characters long."
-                    : "Password must contain at least one number.";
+                // Check and display appropriate error message for password requirements
+                if (password.Length < 8)
+                {
+                    error.Text = "Password must be at least 8 characters long.";
+                }
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(password, @"\d"))
+                {
+                    error.Text = "Password must contain at least one number.";
+                }
+                else if (password.Contains(" "))
+                {
+                    error.Text = "Password cannot contain spaces.";
+                }
                 error.ForeColor = Color.Red;
             }
         }

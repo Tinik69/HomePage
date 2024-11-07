@@ -37,7 +37,7 @@ namespace PassGuard
                 error.ForeColor = Color.Red;
                 return;
             }
-            else if (editpass_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d"))
+            else if (editpass_tbox.Text.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d") && !newPassword.Contains(" "))
             {
 
                 string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=PassGuard_Database;Integrated Security=True;Encrypt=False";
@@ -81,8 +81,20 @@ namespace PassGuard
             }
             else
             {
-                error.Text = newPassword.Length < 8 ? "Password must be at least 8 characters long."
-                    : "Password must contain at least one number.";
+
+                // Check and display appropriate error message for password requirements
+                if (newPassword.Length < 8)
+                {
+                    error.Text = "Password must be at least 8 characters long.";
+                }
+                else if (!System.Text.RegularExpressions.Regex.IsMatch(newPassword, @"\d"))
+                {
+                    error.Text = "Password must contain at least one number.";
+                }
+                else if (newPassword.Contains(" "))
+                {
+                    error.Text = "Password cannot contain spaces.";
+                }
                 error.ForeColor = Color.Red;
             }
 
